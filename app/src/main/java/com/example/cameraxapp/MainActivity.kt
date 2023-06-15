@@ -67,7 +67,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-    @SuppressLint("UseCompatLoadingForDrawables")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -99,14 +98,13 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.switchBtn.setOnClickListener {
-            cameraSelector = if (cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA) {
-                CameraSelector.DEFAULT_FRONT_CAMERA
+            if (cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA) {
+                cameraSelector = CameraSelector.DEFAULT_FRONT_CAMERA
+                startCamera()
             } else {
-                CameraSelector.DEFAULT_BACK_CAMERA
+                cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
+                startCamera()
             }
-//            lifecycleScope.launch {
-            startCamera()
-            //}
         }
         binding.galleryBtn.setOnClickListener {
             val intent = Intent(this, ImageActivity::class.java)
@@ -172,7 +170,6 @@ class MainActivity : AppCompatActivity() {
             extensionsManagerFuture.addListener(
                 {
                     val extensionsManager = extensionsManagerFuture.get()
-                    val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
 
                     if (hdrOnFlag) {
                         if (extensionsManager.isExtensionAvailable(
