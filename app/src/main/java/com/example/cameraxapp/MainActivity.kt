@@ -71,6 +71,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        //For Full Screen
         val window = this.window
         window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
@@ -197,9 +198,9 @@ class MainActivity : AppCompatActivity() {
                             binding.preview.setOnTouchListener { _, event ->
                                 val factory = binding.preview.meteringPointFactory
                                 val point = factory.createPoint(event.x, event.y)
-                                animateFocusCircle(event.x, event.y)
                                 val action = FocusMeteringAction.Builder(point).build()
                                 camera.cameraControl.startFocusAndMetering(action)
+                                animateFocusCircle(event.x, event.y)
                                 true
                             }
 
@@ -229,9 +230,9 @@ class MainActivity : AppCompatActivity() {
 
                             val factory = binding.preview.meteringPointFactory
                             val point = factory.createPoint(event.x, event.y)
-                            animateFocusCircle(event.x, event.y)
                             val action = FocusMeteringAction.Builder(point).build()
                             camera.cameraControl.startFocusAndMetering(action)
+                            animateFocusCircle(event.x, event.y)
                             true
                         }
                     }
@@ -266,7 +267,7 @@ class MainActivity : AppCompatActivity() {
         binding.focusCircle.x = x - width / 2
         binding.focusCircle.y = y - height / 2
 
-        // Show focus ring
+        // Show focus circle
         binding.focusCircle.visibility = View.VISIBLE
         binding.focusCircle.alpha = 1f
 
